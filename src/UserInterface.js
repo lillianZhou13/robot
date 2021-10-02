@@ -33,8 +33,8 @@ class UserInterface {
       parent: this.screen,
       top: 1,
       left: 0,
-      width: '50%',
-      height: '50%',
+      width: '50em',
+      height: '50em',
       border: {
         type: 'line',
       },

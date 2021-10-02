@@ -48,10 +48,11 @@ class Robot {
           }else{
               this.position.f = currentFace;
           }
+          console.log("ROTATE TO ", this.position.f);
       }
     moveRobot(){
     //Move one step forward based on direction
-    console.log("this.position in moveRobot",this.position);
+    
     if(this.is_dead_corner(this.position)){
       console.log("REACH TO DEAD CORNER, TURN LEFT or RIGHT");
       return;
@@ -79,7 +80,7 @@ class Robot {
           return this.position;
      }
    
-}
+  }
     getReport(){
     console.log(`position in report after move,x=${this.position.x},y=${this.position.y},f=${this.position.f}`);
     return this.position;
@@ -91,7 +92,7 @@ class Robot {
       && corner[1] === position[1]
       && corner[2] === position[2].toUpperCase());
       
-     
+     //return positonFound ? true : false;
      if(positionFound && positionFound.length>0){
       console.log("is dead corner",positionFound.length);
        return true;

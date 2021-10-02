@@ -31,13 +31,9 @@ const rl = readline.createInterface({
 
 /**
  * @class Game
- *
- * The Game class tracks the state of three things:
- *
+ *properties
  * 1. Position(x,y,f)
- * 2.id
- * 
- *MainMethods:
+ * MainMethods:
  * start,exit,getReport,faceOnchange,promptNewPosition
  * listKeys()
  */
@@ -48,8 +44,7 @@ class Game extends Robot {
         this.position =position;
         this.id =id;
         this.ui = ui;
-        this.is_dead_corner('55N');
-        this.is_dead_corner('23n');
+        
 
        
    }
@@ -59,9 +54,7 @@ class Game extends Robot {
   console.log("TYPE IN POSITION (x,y,f)");
   rl.write(null, { ctrl: true, name: 'u' });
   rl.on('line', (place) => {
-    
-    console.log("line---",place);
- 
+
     //check if input is two int between(0-5)
   if(place && place.length === 3) {
     
@@ -97,7 +90,7 @@ class Game extends Robot {
     }
   
     } else{
-      console.log("UNVALIDATED INPUT --- TOO LONG");
+      console.log("UNVALIDATED INPUT --- NOT THREE");
       this.promptNewPosition();
     }
   });
@@ -107,11 +100,10 @@ faceOnChange(key) {
     
     if ((key.name.toUpperCase() === DIRECTION_LEFT || key.name === 'a')) {
       this.changeFace(DIRECTION_LEFT);
-      console.log("changeFace key",DIRECTION_LEFT);
     }
     if ((key.name.toUpperCase() === DIRECTION_RIGHT || key.name === 'd') ) {
       this.changeFace(DIRECTION_RIGHT);
-      console.log("changeFace key",DIRECTION_RIGHT);
+    
     }
   }
 

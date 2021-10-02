@@ -5,7 +5,6 @@ const {
   DIRECTION_LEFT,
   DIRECTION_RIGHT,
   MOVE_STEP,
-  ROBOT_COLOR,
   DEAD_CORNERS
   } = require('./constants');
   /*
@@ -24,7 +23,7 @@ class Robot {
     } 
   
    
-    resetRobot(newPosition){
+  resetRobot(newPosition){
         if(newPosition){
             this.position = [];
             this.position = newPosition;
@@ -35,9 +34,9 @@ class Robot {
         
        // this.ui.resetReport();
        // this.ui.render();
-      }
+  }
       
-    changeFace(direction){
+  changeFace(direction){
       let currentFace = DIRECTIONS.indexOf(this.position.f);
           if(currentFace !== -1 && direction === DIRECTION_LEFT){
             this.position.f = currentFace === 0 ? DIRECTIONS[3] : DIRECTIONS[currentFace-1];
@@ -49,15 +48,16 @@ class Robot {
               this.position.f = currentFace;
           }
           console.log("ROTATE TO ", this.position.f);
-      }
-    moveRobot(){
-    //Move one step forward based on direction
-    console.log("tjis position in move",this.position);
-    if(this.is_dead_corner(this.position)){
+  }
+
+  //Move one step forward based on direction
+  moveRobot(){
+     console.log("tjis position in move",this.position);
+     if(this.is_dead_corner(this.position)){
       console.log("REACH TO DEAD CORNER, TURN LEFT or RIGHT");
       return;
     }
-    console.log(`MOVE`);
+     console.log(`MOVE`);
 
     // compare wiht deadPositions
 
@@ -76,15 +76,17 @@ class Robot {
        case DIRECTIONS[3]:
         this.position.x = this.position.x - MOVE_STEP
         break;
-        default:
+      default:
           return this.position;
      }
    
   }
-    getReport(){
+
+  getReport(){
     console.log(`position in report after move,x=${this.position.x},y=${this.position.y},f=${this.position.f}`);
     return this.position;
   }
+
   is_dead_corner(position){
     console.log("position in is_dead corner", position);
     let positionFound = DEAD_CORNERS.filter(corner => 
@@ -103,4 +105,6 @@ class Robot {
       
   }
 }
+
+
 module.exports = { Robot }

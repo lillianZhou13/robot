@@ -11,7 +11,7 @@
     "play": "node index.js"
   },
   "dependencies": {
-    "blessed": "^0.1.81"
+   
     
   },
   "licence": "MIT",

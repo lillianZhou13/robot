@@ -38,16 +38,11 @@ class Game extends Robot {
   
     super(id,position);
         this.position =position;
-        this.id =id;
-        //this.ui = ui;
-        this.is_dead_corner({"x":5,"y":4,"f":"E"});
-        
-
-       
+        this.id =id;   
    }
     
   
- promptNewPosition = () => {
+promptNewPosition = () => {
   rl.on("line",this.promptNewPosition);
   process.stdin.off('keypress', this.keypressHandler);
   console.log("TYPE IN POSITION (x,y,f)");
@@ -105,13 +100,13 @@ faceOnChange(key) {
       this.changeFace(DIRECTION_RIGHT);
     
     }
-  }
+}
 
  
 getReport(){
     
     process.stdout.write(`REPORT X:${this.position.x},Y:${this.position.y},F:${this.position.f}`);
-  }
+}
  
 start(){
   this.promptNewPosition();
@@ -124,7 +119,7 @@ listKeys(){
         console.log(`${item.key_name} --- ${item.commands}`)
     });
 }
- keypressHandler = (chunk,key) => {
+keypressHandler = (chunk,key) => {
   console.log("Keypresshandler on");
  
   if(key && key.name){

@@ -11,9 +11,8 @@
     "play": "node index.js"
   },
   "dependencies": {
-    "blessed": "^0.1.81",
-    "prompt": "^1.2.0",
-    "prompt-sync": "^4.2.0"
+    "blessed": "^0.1.81"
+    
   },
   "licence": "MIT",
   "keywords": [

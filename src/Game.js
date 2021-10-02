@@ -53,27 +53,14 @@ class Game extends Robot {
     
   
  promptNewPosition = () => {
-  /*var x = prm("Coordinates of X : ");
-  var y = prm("Coordinates of Y : ");
-  var f = prm("Face Direction: ");
-  f = f.toUpperCase();
-  if((x>=0 && x <=4)&&(y>=0 &&y<=4)&&(DIRECTIONS.indexOf(f)!==-1)){
-    this.position = {
-      x:+x,
-      y:+y,
-      f:f
-    };
-    console.log(`robot position, ${this.position.f}`);
-    this.resetRobot(this.position);
-  }else{
-    this.promptNewPosition();
-  }*/
+  console.log("TYPE IN POSITION (x,y,f)");
   rl.write(null, { ctrl: true, name: 'u' });
   rl.on('line', (place) => {
     
     console.log("line---",place);
  
     //check if input is two int between(0-5)
+  if(place && place.length === 3) {
   if (place.slice(0,2).match(/^([0-5][0-5]){1}$/)){
       place[2].toUpperCase();
       if(DIRECTIONS.indexOf(place[2])!==-1){
@@ -88,14 +75,19 @@ class Game extends Robot {
        
       
       }else{
+        console.log("UNVALIDATED INPUT");
         this.promptNewPosition();
         
       }
       
      }else{
-       this.promptNewPosition();
+      console.log("UNVALIDATED INPUT");
+      this.promptNewPosition();
      }
-    
+    } else{
+      console.log("UNVALIDATED INPUT");
+      this.promptNewPosition();
+    }
   });
 }
 

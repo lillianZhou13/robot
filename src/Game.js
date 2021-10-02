@@ -9,7 +9,6 @@ const {
 } = require('./constants');
 const { Robot } = require('./Robot');
 const readline = require('readline');
-const prm = require("prompt-sync")();
 const { ui } =  require("./UserInterface");
 const keyToListen=["space","escape","m","r","p","a","d"];
 readline.emitKeypressEvents(process.stdin);
@@ -41,6 +40,7 @@ class Game extends Robot {
         this.position =position;
         this.id =id;
         //this.ui = ui;
+        this.is_dead_corner({"x":5,"y":4,"f":"E"});
         
 
        
@@ -56,25 +56,25 @@ class Game extends Robot {
 
     //check if input is two int between(0-5)
   if(place && place.length === 3) {
-    
      
-    if(!this.is_dead_corner(place)){
-      
       if (place.slice(0,2).match(/^([0-5][0-5]){1}$/)){
         place[2] ==place[2].toUpperCase();
         if(DIRECTIONS.indexOf(place[2])!==-1){
+
           this.position = {
             x:+place[0],
             y:+place[1],
             f:place[2]
           };
+
+          if(!this.is_dead_corner(place)){
           console.log(`robot position, ${this.position.f}`);
           this.resetRobot(this.position);
           process.stdin.on('keypress', this.keypressHandler);
-         // this.ui.clearScreen();
-          //this.ui.createGameOverBox();
-         // this.ui.drawDot();
-          //this.ui.render();
+        }else{
+          console.log("UNVALIDATED INPUT --- DEAD CORNER");
+          this.promptNewPosition();
+        }
 
         
         }else{
@@ -87,10 +87,7 @@ class Game extends Robot {
         console.log("UNVALIDATED INPUT --- FIRST TWO NOT VALIDATED NUMBER");
         this.promptNewPosition();
        }
-    }else{
-      console.log("UNVALIDATED INPUT --- DEAD CORNER");
-      this.promptNewPosition();
-    }
+    
   
     } else{
       console.log("UNVALIDATED INPUT --- NOT THREE");

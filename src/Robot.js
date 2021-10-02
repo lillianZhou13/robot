@@ -1,6 +1,5 @@
 'use strict'
 const {
-  GAME_SPEED,
   INITIAL_POSITION,
   DIRECTIONS,
   DIRECTION_LEFT,
@@ -53,7 +52,7 @@ class Robot {
       }
     moveRobot(){
     //Move one step forward based on direction
-    
+    console.log("tjis position in move",this.position);
     if(this.is_dead_corner(this.position)){
       console.log("REACH TO DEAD CORNER, TURN LEFT or RIGHT");
       return;
@@ -87,11 +86,11 @@ class Robot {
     return this.position;
   }
   is_dead_corner(position){
-    console.log("position", position);
+    console.log("position in is_dead corner", position);
     let positionFound = DEAD_CORNERS.filter(corner => 
-      corner[0] === position[0]
-      && corner[1] === position[1]
-      && corner[2] === position[2].toUpperCase());
+      +corner[0] === position.x
+      && +corner[1] === position.y
+      && corner[2] === position.f.toUpperCase());
       
      //return positonFound ? true : false;
      if(positionFound && positionFound.length>0){

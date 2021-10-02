@@ -1,7 +1,6 @@
-const { UserInterface } = require('./src/UserInterface')
-const { Game } = require('./src/Game')
+const { UserInterface } = require('./src/UserInterface');
+const { Game } = require('./src/Game');
+//const game = new Game(new UserInterface());
+const game = new Game();
 
-module.exports = {
-  UserInterface,
-  Game,
-}
+process.stdin.on('keypress', game.keypressHandler);

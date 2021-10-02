@@ -16,15 +16,16 @@ class UserInterface {
     this.screen = blessed.screen()
 
     // Game title
-    this.screen.title = 'Snek.js'
+    this.screen.title = 'Robot-move.js'
 
     // Create the boxes
-    this.gameBox = this.createGameBox()
-    this.scoreBox = this.createScoreBox()
-    this.gameOverBox = this.createGameOverBox()
+    this.gameBox = this.createGameBox();
+    this.reportBox = this.createReportBox();
+    this.gameOverBox = this.createGameOverBox();
 
-    this.gameContainer = this.blessed.box(this.gameBox)
-    this.scoreContainer = this.blessed.box(this.scoreBox)
+    this.gameContainer = this.blessed.box(this.gameBox);
+    this.reportContainer = this.blessed.box(this.reportBox);
+    
   }
 
   createGameBox() {
@@ -32,26 +33,34 @@ class UserInterface {
       parent: this.screen,
       top: 1,
       left: 0,
-      width: '100%',
-      height: '100%-1',
+      width: '50%',
+      height: '50%',
+      border: {
+        type: 'line',
+      },
       style: {
         fg: 'black',
         bg: 'black',
+        border: {
+          fg: '#ffffff',
+        },
       },
     }
   }
 
-  createScoreBox() {
+  createReportBox() {
     return {
       parent: this.screen,
       top: 0,
       left: 'left',
       width: '100%',
+      content: `{center}Message\n\n{/center}`,
       height: 1,
       tags: true,
       style: {
         fg: 'white',
         bg: 'blue',
+        
       },
     }
   }
@@ -102,8 +111,8 @@ class UserInterface {
   }
 
   // Keep track of how many dots have been consumed and write to the score box
-  updateScore(score) {
-    this.scoreContainer.setLine(0, `{bold}Score:{/bold} ${score}`)
+  updateReport(report) {
+    this.reportContainer.setLine(0, `{bold}Report:{/bold}  x:${report.x},y:${report.x},f:${report.f}`)
   }
 
   // BSOD on game over
@@ -118,10 +127,10 @@ class UserInterface {
   }
 
   // Creating a new score box to prevent old snake segments from appearing on it
-  resetScore() {
-    this.scoreContainer.detach()
-    this.scoreContainer = this.blessed.box(this.scoreBox)
-    this.updateScore(0)
+  resetReport() {
+    this.reportContainer.detach()
+    this.reportContainer = this.blessed.box(this.reportBox)
+    this.updateReport({x:0,y:0,f:"east"});
   }
 
   render() {

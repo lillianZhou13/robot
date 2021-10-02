@@ -1,21 +1,23 @@
 {
-  "name": "snekjs",
-  "version": "1.0.4",
-  "description": "A terminal-based Snake implementation written in JavaScript (Node.js) 🐍",
-  "author": "Tania Rascia",
+  "name": "robotjs",
+  "version": "1.0.0",
+  "description": "A terminal-based Robot implementation written in JavaScript (Node.js)",
+  "author": "Lillian Zhou",
   "main": "index.js",
   "bin": {
-    "snek": "./play.js"
+    "snek": "./index.js"
   },
   "scripts": {
-    "play": "node play.js"
+    "play": "node index.js"
   },
   "dependencies": {
-    "blessed": "^0.1.81"
+    "blessed": "^0.1.81",
+    "prompt": "^1.2.0",
+    "prompt-sync": "^4.2.0"
   },
   "licence": "MIT",
   "keywords": [
-    "snake",
+    "robot",
     "javascript",
     "node"
   ],

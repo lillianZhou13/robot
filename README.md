@@ -6,9 +6,11 @@ A terminal-based Robot implementation written in JavaScript (Node.js).
 
 
 ## Instruction - Keyname and Commands
+space --- Start
+esc  --- exit
 r --- Get Report
 p --- Set StartPoint
-a --- Rotate To Left
+m --- Move one Step Forward
 a --- Rotate To Left
 d --- Rotate To Right
 
@@ -16,6 +18,8 @@ d --- Rotate To Right
 
 
 # install and run via npm or yarn
+
+```
 npm install
 ```
 

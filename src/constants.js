@@ -15,16 +15,8 @@ const KEY_MAP = [
   {"key_name":"a","commands":"Rotate To Left"},
   {"key_name":"d","commands":"Rotate To Right"},
 ]
-const DEAD_CORNERS = [
-  {"x":5,"y":5,"f":"E"},
-  {"x":5,"y":5,"f":"N"},
-  {"x":5,"y":0,"f":"E"},
-  {"x":5,"y":0,"f":"S"},
-  {"x":0,"y":0,"f":"S"},
-  {"x":0,"y":0,"f":"W"},
-  {"x":0,"y":5,"f":"w"},
-  {"x":0,"y":5,"f":"N"}
-];
+const DEAD_CORNERS = ["55E","55N","50E","50S",'00S','00W','05N','05W'];
+  
 
 module.exports = {
 

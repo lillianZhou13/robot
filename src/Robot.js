@@ -7,7 +7,7 @@ const {
   DIRECTION_RIGHT,
   MOVE_STEP,
   ROBOT_COLOR,
-  DEADPOSITIONS
+  DEAD_CORNERS
   } = require('./constants');
   /*
   * Properties:
@@ -51,7 +51,13 @@ class Robot {
       }
     moveRobot(){
     //Move one step forward based on direction
+    console.log("this.position in moveRobot",this.position);
+    if(this.is_dead_corner(this.position)){
+      console.log("REACH TO DEAD CORNER, TURN LEFT or RIGHT");
+      return;
+    }
     console.log(`MOVE`);
+
     // compare wiht deadPositions
 
      switch(this.position.f){
@@ -77,6 +83,23 @@ class Robot {
     getReport(){
     console.log(`position in report after move,x=${this.position.x},y=${this.position.y},f=${this.position.f}`);
     return this.position;
+  }
+  is_dead_corner(position){
+    console.log("position", position);
+    let positionFound = DEAD_CORNERS.filter(corner => 
+      corner[0] === position[0]
+      && corner[1] === position[1]
+      && corner[2] === position[2].toUpperCase());
+      
+     
+     if(positionFound && positionFound.length>0){
+      console.log("is dead corner",positionFound.length);
+       return true;
+     }else{
+       console.log("not dead corner");
+       return false;
+     }
+      
   }
 }
 module.exports = { Robot }

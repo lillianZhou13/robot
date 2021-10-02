@@ -7,7 +7,7 @@ const {
   MOVE_STEP,
   ROBOT_COLOR,
   KEY_MAP,
-  QUESTIONS
+  DEAD_CORNERS
 
 } = require('./constants');
 const { Robot } = require('./Robot');
@@ -48,6 +48,9 @@ class Game extends Robot {
         this.position =position;
         this.id =id;
         this.ui = ui;
+        this.is_dead_corner('55N');
+        this.is_dead_corner('23n');
+
        
    }
     
@@ -61,31 +64,40 @@ class Game extends Robot {
  
     //check if input is two int between(0-5)
   if(place && place.length === 3) {
-  if (place.slice(0,2).match(/^([0-5][0-5]){1}$/)){
-      place[2].toUpperCase();
-      if(DIRECTIONS.indexOf(place[2])!==-1){
-        this.position = {
-          x:+place[0],
-          y:+place[1],
-          f:place[2]
-        };
-        console.log(`robot position, ${this.position.f}`);
-        this.resetRobot(this.position);
-        process.stdin.on('keypress', this.keypressHandler);
-       
+    
+     
+    if(!this.is_dead_corner(place)){
       
-      }else{
-        console.log("UNVALIDATED INPUT");
-        this.promptNewPosition();
+      if (place.slice(0,2).match(/^([0-5][0-5]){1}$/)){
+        place[2] ==place[2].toUpperCase();
+        if(DIRECTIONS.indexOf(place[2])!==-1){
+          this.position = {
+            x:+place[0],
+            y:+place[1],
+            f:place[2]
+          };
+          console.log(`robot position, ${this.position.f}`);
+          this.resetRobot(this.position);
+          process.stdin.on('keypress', this.keypressHandler);
+         
         
-      }
-      
-     }else{
-      console.log("UNVALIDATED INPUT");
+        }else{
+          console.log("UNVALIDATED INPUT --- NOT VALIDATED FACE");
+          this.promptNewPosition();
+          
+        }
+        
+       }else{
+        console.log("UNVALIDATED INPUT --- FIRST TWO NOT VALIDATED NUMBER");
+        this.promptNewPosition();
+       }
+    }else{
+      console.log("UNVALIDATED INPUT --- DEAD CORNER");
       this.promptNewPosition();
-     }
+    }
+  
     } else{
-      console.log("UNVALIDATED INPUT");
+      console.log("UNVALIDATED INPUT --- TOO LONG");
       this.promptNewPosition();
     }
   });

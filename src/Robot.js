@@ -23,7 +23,7 @@ class Robot {
         this.position =position;
         this.id =id;
     } 
-    //async 
+  
    
     resetRobot(newPosition){
         if(newPosition){
@@ -37,6 +37,7 @@ class Robot {
        // this.ui.resetReport();
        // this.ui.render();
       }
+      
     changeFace(direction){
       let currentFace = DIRECTIONS.indexOf(this.position.f);
           if(currentFace !== -1 && direction === DIRECTION_LEFT){

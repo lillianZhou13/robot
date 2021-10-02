@@ -1,13 +1,10 @@
 const {
-  GAME_SPEED,
   INITIAL_POSITION,
   DIRECTIONS,
   DIRECTION_LEFT,
   DIRECTION_RIGHT,
-  MOVE_STEP,
   ROBOT_COLOR,
-  KEY_MAP,
-  DEAD_CORNERS
+  KEY_MAP
 
 } = require('./constants');
 const { Robot } = require('./Robot');
@@ -43,7 +40,7 @@ class Game extends Robot {
     super(id,position);
         this.position =position;
         this.id =id;
-        this.ui = ui;
+        //this.ui = ui;
         
 
        
@@ -51,6 +48,8 @@ class Game extends Robot {
     
   
  promptNewPosition = () => {
+  rl.on("line",this.promptNewPosition);
+  process.stdin.off('keypress', this.keypressHandler);
   console.log("TYPE IN POSITION (x,y,f)");
   rl.write(null, { ctrl: true, name: 'u' });
   rl.on('line', (place) => {
@@ -72,7 +71,11 @@ class Game extends Robot {
           console.log(`robot position, ${this.position.f}`);
           this.resetRobot(this.position);
           process.stdin.on('keypress', this.keypressHandler);
-         
+         // this.ui.clearScreen();
+          //this.ui.createGameOverBox();
+         // this.ui.drawDot();
+          //this.ui.render();
+
         
         }else{
           console.log("UNVALIDATED INPUT --- NOT VALIDATED FACE");
@@ -109,10 +112,13 @@ faceOnChange(key) {
 
  
 getReport(){
-    return this.report;
+    
+    process.stdout.write(`REPORT X:${this.position.x},Y:${this.position.y},F:${this.position.f}`);
   }
  
-
+start(){
+  this.promptNewPosition();
+}
 quit(){
     process.exit()
   }
@@ -134,7 +140,7 @@ listKeys(){
 
     }else{
       if(key&&key.name === "space"){
-        this.promptNewPosition();
+        this.start();
      }else if(key && key.name === "escape"){
        process.exit();
      }else if(key && key.name === "m"){ 
@@ -142,8 +148,7 @@ listKeys(){
      }else if(key && key.name === "r"){ 
       this.getReport();
      }else if(key && key.name === "p"){
-        rl.on("line",this.promptNewPosition);
-        process.stdin.off('keypress', this.keypressHandler);
+        
         this.promptNewPosition();
      }else if(key && (key.name === "a"||key.name === "d")){ 
         this.faceOnChange(key);
@@ -157,6 +162,12 @@ listKeys(){
   
     
 }
+drawDot() {
+  // Render the dot as a pixel
+  const coords= {"x":this.position.x,"y":this.position.y};
+  this.ui.draw(coords, ROBOT_COLOR);
+}
+
 
 
 }

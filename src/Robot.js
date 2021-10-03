@@ -45,16 +45,16 @@ class Robot {
           }else{
               this.position.f = currentFace;
           }
-          console.log("ROTATE TO ", this.position.f);
+          console.log("\nROTATE TO ", this.position.f);
   }
 
   //Move one step forward based on direction
   moveRobot(){
       if(this.is_dead_corner(this.position)){
-        console.log("REACH TO DEAD CORNERS, TURN LEFT OR RIGHT");
+        console.log("\nREACH TO DEAD CORNERS, TURN LEFT OR RIGHT");
       return;
     }
-     console.log(`MOVE`);
+     console.log(`\nMOVE`);
 
     // compare wiht deadPositions
 
@@ -79,7 +79,7 @@ class Robot {
   }
 
   getReport(){
-    console.log(`REPORT x:${this.position.x},y:${this.position.y},f:${this.position.f}`);
+    console.log(`\nREPORT x:${this.position.x},y:${this.position.y},f:${this.position.f}`);
   }
 
   is_dead_corner(position){

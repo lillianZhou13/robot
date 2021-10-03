@@ -36,59 +36,58 @@ class Game extends Robot {
   
     super(id,position);
         this.position =position;
-        this.id =id;   
-   }
-    
-  
-promptNewPosition = () => {
-  rl.on("line",this.promptNewPosition);
-  process.stdin.off('keypress', this.keypressHandler);
-  console.log("TYPE IN POSITION (x,y,f)");
-  rl.write(null, { ctrl: true, name: 'u' });
-  rl.on('line', (place) => {
-
-    //check if input is two int between(0-5)
-  if(place && place.length === 3) {
-     
-      if (place.slice(0,2).match(/^([0-5][0-5]){1}$/)){
-        place[2] ==place[2].toUpperCase();
-        if(DIRECTIONS.indexOf(place[2])!==-1){
-
-          this.position = {
-            x:+place[0],
-            y:+place[1],
-            f:place[2]
-          };
-
-          if(!this.is_dead_corner(place)){
-         
-          this.resetRobot(this.position);
-          process.stdin.on('keypress', this.keypressHandler);
-         
-        }else{
-          console.log("\nUNVALIDATED INPUT --- DEAD CORNER");
-          this.promptNewPosition();
-        }
-
+        this.id =id;  
         
-        }else{
-          console.log("\nUNVALIDATED INPUT --- NOT VALIDATED FACE");
-          this.promptNewPosition();
+    
+
+   promptNewPosition = () => {
+    rl.on("line",this.promptNewPosition);
+    process.stdin.off('keypress', this.keypressHandler);
+    console.log("TYPE IN POSITION (x,y,f)");
+    rl.write(null, { ctrl: true, name: 'u' });
+    rl.on('line', (place) => {
+  
+      //check if input is two int between(0-5)
+    if(place && place.length === 3) {
+       
+        if (place.slice(0,2).match(/^([0-5][0-5]){1}$/)){
+          place[2] ==place[2].toUpperCase();
+          if(DIRECTIONS.indexOf(place[2])!==-1){
+  
+            this.position = {
+              x:+place[0],
+              y:+place[1],
+              f:place[2]
+            };
+  
+            if(!this.is_dead_corner(place)){
+            console.log(`robot position, ${this.position.f}`);
+            this.resetRobot(this.position);
+            process.stdin.on('keypress', this.keypressHandler);
+          }else{
+            console.log("UNVALIDATED INPUT --- DEAD CORNER");
+            this.promptNewPosition();
+          }
+  
           
-        }
-        
-       }else{
-        console.log("\nUNVALIDATED INPUT --- FIRST TWO NOT VALIDATED NUMBER");
-        this.promptNewPosition();
-       }
+          }else{
+            console.log("UNVALIDATED INPUT --- NOT VALIDATED FACE");
+            this.promptNewPosition();
+            
+          }
+          
+         }else{
+          console.log("UNVALIDATED INPUT --- FIRST TWO NOT VALIDATED NUMBER");
+          this.promptNewPosition();
+         }
+      
     
-  
-    } else{
-      console.log("\nUNVALIDATED INPUT --- NOT THREE");
-      this.promptNewPosition();
-    }
-  });
-}
+      } else{
+        console.log("UNVALIDATED INPUT --- NOT THREE");
+        this.promptNewPosition();
+      }
+    });
+  }
 
 faceOnChange(key) {
     
@@ -130,9 +129,7 @@ keypressHandler = (chunk,key) => {
       //return;
 
     }else{
-      if(key && key.name === "space"){
-      rl.on("line",this.promptNewPosition);
-      process.stdin.off("keypress",this.keypressHandler);
+      if(key && key.name === "space"){ 
       this.start();
      }else if(key && key.name === "escape"){
        process.exit();
@@ -141,8 +138,7 @@ keypressHandler = (chunk,key) => {
      }else if(key && key.name === "r"){ 
       this.getReport();
      }else if(key && key.name === "p"){
-      rl.on("line",this.promptNewPosition);
-      process.stdin.off("keypress",this.keypressHandler);
+      
       this.promptNewPosition();
      }else if(key && (key.name === "a"||key.name === "d")){ 
         this.faceOnChange(key);

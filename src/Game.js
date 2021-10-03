@@ -38,9 +38,9 @@ class Game extends Robot {
         this.position =position;
         this.id =id;  
         
-    
+  }
 
-   promptNewPosition = () => {
+  promptNewPosition = () => {
     rl.on("line",this.promptNewPosition);
     process.stdin.off('keypress', this.keypressHandler);
     console.log("TYPE IN POSITION (x,y,f)");
@@ -87,9 +87,9 @@ class Game extends Robot {
         this.promptNewPosition();
       }
     });
-  }
+  };
 
-faceOnChange(key) {
+ faceOnChange(key){
     
     if ((key.name.toUpperCase() === DIRECTION_LEFT || key.name === 'a')) {
       this.changeFace(DIRECTION_LEFT);
@@ -98,25 +98,24 @@ faceOnChange(key) {
       this.changeFace(DIRECTION_RIGHT);
     
     }
-}
+ };
 
- 
-getReport(){
-    
+ getReport(){
     process.stdout.write(`REPORT X:${this.position.x},Y:${this.position.y},F:${this.position.f}`);
-}
+ };
  
-start(){
+ start(){
   this.promptNewPosition();
-}
-quit(){
-    process.exit()
+ } 
+ quit(){
+    process.exit();
   }
 listKeys(){
     KEY_MAP.map(item=>{
         console.log(`${item.key_name} --- ${item.commands}`)
     });
 }
+
 keypressHandler = (chunk,key) => {
   
  
@@ -129,7 +128,7 @@ keypressHandler = (chunk,key) => {
       //return;
 
     }else{
-      if(key && key.name === "space"){ 
+     if(key && key.name === "space"){ 
       this.start();
      }else if(key && key.name === "escape"){
        process.exit();
@@ -142,9 +141,13 @@ keypressHandler = (chunk,key) => {
       this.promptNewPosition();
      }else if(key && (key.name === "a"||key.name === "d")){ 
         this.faceOnChange(key);
+     }else{
+       return;
      }
     }
 
+  }else{
+    return;
   }
 
 

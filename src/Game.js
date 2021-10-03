@@ -10,7 +10,7 @@ const { Robot } = require('./Robot');
 const readline = require('readline');
 const keyToListen=["space","escape","m","r","p","a","d"];
 readline.emitKeypressEvents(process.stdin);
-
+require('events').defaultMaxListeners = 100;
 
 if(process.stdin.isTTY){
   process.stdin.setRawMode(true);
@@ -64,26 +64,27 @@ promptNewPosition = () => {
          
           this.resetRobot(this.position);
           process.stdin.on('keypress', this.keypressHandler);
+         
         }else{
-          console.log("UNVALIDATED INPUT --- DEAD CORNER");
+          console.log("\nUNVALIDATED INPUT --- DEAD CORNER");
           this.promptNewPosition();
         }
 
         
         }else{
-          console.log("UNVALIDATED INPUT --- NOT VALIDATED FACE");
+          console.log("\nUNVALIDATED INPUT --- NOT VALIDATED FACE");
           this.promptNewPosition();
           
         }
         
        }else{
-        console.log("UNVALIDATED INPUT --- FIRST TWO NOT VALIDATED NUMBER");
+        console.log("\nUNVALIDATED INPUT --- FIRST TWO NOT VALIDATED NUMBER");
         this.promptNewPosition();
        }
     
   
     } else{
-      console.log("UNVALIDATED INPUT --- NOT THREE");
+      console.log("\nUNVALIDATED INPUT --- NOT THREE");
       this.promptNewPosition();
     }
   });
@@ -118,7 +119,7 @@ listKeys(){
     });
 }
 keypressHandler = (chunk,key) => {
-  console.log("Keypresshandler on");
+  
  
   if(key && key.name){
 
@@ -129,8 +130,10 @@ keypressHandler = (chunk,key) => {
       //return;
 
     }else{
-      if(key&&key.name === "space"){
-        this.start();
+      if(key && key.name === "space"){
+      rl.on("line",this.promptNewPosition);
+      process.stdin.off("keypress",this.keypressHandler);
+      this.start();
      }else if(key && key.name === "escape"){
        process.exit();
      }else if(key && key.name === "m"){ 
@@ -138,8 +141,9 @@ keypressHandler = (chunk,key) => {
      }else if(key && key.name === "r"){ 
       this.getReport();
      }else if(key && key.name === "p"){
-        
-        this.promptNewPosition();
+      rl.on("line",this.promptNewPosition);
+      process.stdin.off("keypress",this.keypressHandler);
+      this.promptNewPosition();
      }else if(key && (key.name === "a"||key.name === "d")){ 
         this.faceOnChange(key);
      }

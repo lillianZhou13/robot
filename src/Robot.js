@@ -27,13 +27,11 @@ class Robot {
         if(newPosition){
             this.position = [];
             this.position = newPosition;
-            console.log(`robot reset: ${this.position}`)
+            
         }else{
             this.position = INITIAL_POSITION;
         }
-        
-       // this.ui.resetReport();
-       // this.ui.render();
+      
   }
       
   changeFace(direction){
@@ -52,9 +50,8 @@ class Robot {
 
   //Move one step forward based on direction
   moveRobot(){
-     console.log("tjis position in move",this.position);
-     if(this.is_dead_corner(this.position)){
-      console.log("REACH TO DEAD CORNER, TURN LEFT or RIGHT");
+      if(this.is_dead_corner(this.position)){
+        console.log("REACH TO DEAD CORNERS, TURN LEFT OR RIGHT");
       return;
     }
      console.log(`MOVE`);
@@ -64,7 +61,6 @@ class Robot {
      switch(this.position.f){
        
        case DIRECTIONS[0]:
-        console.log("X Y",+this.position.x,+this.position.y+MOVE_STEP);
         this.position.y = this.position.y + MOVE_STEP;
         break;
        case DIRECTIONS[1]:
@@ -83,12 +79,11 @@ class Robot {
   }
 
   getReport(){
-    console.log(`position in report after move,x=${this.position.x},y=${this.position.y},f=${this.position.f}`);
-    return this.position;
+    console.log(`REPORT x:${this.position.x},y:${this.position.y},f:${this.position.f}`);
   }
 
   is_dead_corner(position){
-    console.log("position in is_dead corner", position);
+    
     let positionFound = DEAD_CORNERS.filter(corner => 
       +corner[0] === position.x
       && +corner[1] === position.y
@@ -96,10 +91,10 @@ class Robot {
       
      //return positonFound ? true : false;
      if(positionFound && positionFound.length>0){
-      console.log("is dead corner",positionFound.length);
+      
        return true;
      }else{
-       console.log("not dead corner");
+       
        return false;
      }
       

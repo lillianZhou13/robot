@@ -10,10 +10,7 @@
   "scripts": {
     "play": "node index.js"
   },
-  "dependencies": {
-   
-    
-  },
+  "dependencies": {},
   "licence": "MIT",
   "keywords": [
     "robot",

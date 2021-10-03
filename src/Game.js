@@ -3,13 +3,11 @@ const {
   DIRECTIONS,
   DIRECTION_LEFT,
   DIRECTION_RIGHT,
-  ROBOT_COLOR,
   KEY_MAP
 
 } = require('./constants');
 const { Robot } = require('./Robot');
 const readline = require('readline');
-const { ui } =  require("./UserInterface");
 const keyToListen=["space","escape","m","r","p","a","d"];
 readline.emitKeypressEvents(process.stdin);
 
@@ -63,7 +61,7 @@ promptNewPosition = () => {
           };
 
           if(!this.is_dead_corner(place)){
-          console.log(`robot position, ${this.position.f}`);
+         
           this.resetRobot(this.position);
           process.stdin.on('keypress', this.keypressHandler);
         }else{
@@ -154,13 +152,6 @@ keypressHandler = (chunk,key) => {
   
     
 }
-drawDot() {
-  // Render the dot as a pixel
-  const coords= {"x":this.position.x,"y":this.position.y};
-  this.ui.draw(coords, ROBOT_COLOR);
-}
-
-
 
 }
 

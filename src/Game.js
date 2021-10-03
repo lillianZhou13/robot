@@ -93,12 +93,10 @@ listKeys(){
     });
 }
 is_validated_place =(place) => {
-  if(place && place.length === 3) {  
-    if (place.slice(0,2).match(/^([0-5][0-5]){1}$/)){
-      if(DIRECTIONS.indexOf(place[2].toUpperCase())!==-1){
-        return true;
-      }else{return false;}
-    }else{return false;}   
+  if(place && place.length === 3 
+    && place.slice(0,2).match(/^([0-5][0-5]){1}$/)
+    && DIRECTIONS.indexOf(place[2].toUpperCase())!==-1) {  
+    return true;
   }else{return false;} 
 }
 keypressHandler = (chunk,key) => {
@@ -122,10 +120,9 @@ keypressHandler = (chunk,key) => {
      }else if(key && key.name === "r"){ 
       this.getReport();
      }else if(key && key.name === "p"){
-      
       this.promptNewPosition();
      }else if(key && (key.name === "a"||key.name === "d")){ 
-        this.faceOnChange(key);
+      this.faceOnChange(key);
      }else{
        return;
      }

@@ -9,11 +9,10 @@ const {
 const { Robot } = require('./Robot');
 const readline = require('readline');
 const keyToListen=["space","escape","m","r","p","a","d"];
-readline.emitKeypressEvents(process.stdin);
 require('events').defaultMaxListeners = 100;
-
+ 
 if(process.stdin.isTTY){
-  process.stdin.setRawMode(true);
+  process.stdin.setRawMode(true)
 }
 
 const rl = readline.createInterface({
@@ -41,51 +40,29 @@ class Game extends Robot {
   }
 
   promptNewPosition = () => {
-    rl.on("line",this.promptNewPosition);
     process.stdin.off('keypress', this.keypressHandler);
-    console.log("TYPE IN POSITION (x,y,f)");
     rl.write(null, { ctrl: true, name: 'u' });
-    rl.on('line', (place) => {
-  
-      //check if input is two int between(0-5)
-    if(place && place.length === 3) {
-       
-        if (place.slice(0,2).match(/^([0-5][0-5]){1}$/)){
-          place[2] ==place[2].toUpperCase();
-          if(DIRECTIONS.indexOf(place[2])!==-1){
-  
-            this.position = {
-              x:+place[0],
-              y:+place[1],
-              f:place[2]
-            };
-  
-            if(!this.is_dead_corner(place)){
-            console.log(`robot position, ${this.position.f}`);
-            this.resetRobot(this.position);
-            process.stdin.on('keypress', this.keypressHandler);
-          }else{
-            console.log("UNVALIDATED INPUT --- DEAD CORNER");
-            this.promptNewPosition();
-          }
-  
-          
-          }else{
-            console.log("UNVALIDATED INPUT --- NOT VALIDATED FACE");
-            this.promptNewPosition();
-            
-          }
-          
-         }else{
-          console.log("UNVALIDATED INPUT --- FIRST TWO NOT VALIDATED NUMBER");
-          this.promptNewPosition();
-         }
+    rl.question('(x,y,f)', (place) => {
+     if(this.is_validated_place(place)) {
+       this.position = {
+        x:+place[0],
+        y:+place[1],
+        f:place[2].toUpperCase()
+      };
+
+      if(!this.is_dead_corner(place)){
+      this.resetRobot(this.position);
+      process.stdin.on('keypress', this.keypressHandler);
       
-    
-      } else{
-        console.log("UNVALIDATED INPUT --- NOT THREE");
+     }else{
+      console.log("UNVALIDATED INPUT --- DEAD CORNER");
+      this.promptNewPosition();
+    }
+     }else{
+         console.log("UNVALIDATED INPUT");
         this.promptNewPosition();
-      }
+     }
+    
     });
   };
 
@@ -115,7 +92,15 @@ listKeys(){
         console.log(`${item.key_name} --- ${item.commands}`)
     });
 }
-
+is_validated_place =(place) => {
+  if(place && place.length === 3) {  
+    if (place.slice(0,2).match(/^([0-5][0-5]){1}$/)){
+      if(DIRECTIONS.indexOf(place[2].toUpperCase())!==-1){
+        return true;
+      }else{return false;}
+    }else{return false;}   
+  }else{return false;} 
+}
 keypressHandler = (chunk,key) => {
   
  

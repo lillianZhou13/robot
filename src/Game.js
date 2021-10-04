@@ -8,7 +8,7 @@ const {
 } = require('./constants');
 const { Robot } = require('./Robot');
 const readline = require('readline');
-const keyToListen=["space","escape","m","r","p","a","d"];
+const keyToListen=["space","escape","m","r","p","a","d","left","right"];
 require('events').defaultMaxListeners = 100;
  
 if(process.stdin.isTTY){
@@ -17,7 +17,8 @@ if(process.stdin.isTTY){
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
+
 });
 
 
@@ -97,7 +98,8 @@ is_validated_place =(place) => {
     && place.slice(0,2).match(/^([0-5][0-5]){1}$/)
     && DIRECTIONS.indexOf(place[2].toUpperCase())!==-1) {  
     return true;
-  }else{return false;} 
+  }else
+  {return false;} 
 }
 keypressHandler = (chunk,key) => {
   
@@ -121,7 +123,8 @@ keypressHandler = (chunk,key) => {
       this.getReport();
      }else if(key && key.name === "p"){
       this.promptNewPosition();
-     }else if(key && (key.name === "a"||key.name === "d")){ 
+     }else if(key && (key.name === "a"||key.name === "d"
+     || key.name === "left" || key.name === "right")){ 
       this.faceOnChange(key);
      }else{
        return;
@@ -130,11 +133,7 @@ keypressHandler = (chunk,key) => {
 
   }else{
     return;
-  }
-
-
-
-  
+  }  
     
 }
 

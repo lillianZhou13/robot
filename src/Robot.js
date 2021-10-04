@@ -50,13 +50,12 @@ class Robot {
 
   //Move one step forward based on direction
   moveRobot(){
+    // compare wiht deadPositions
       if(this.is_dead_corner(this.position)){
         console.log("\nREACH TO DEAD CORNERS, TURN LEFT OR RIGHT");
       return;
     }
      console.log(`\nMOVE`);
-
-    // compare wiht deadPositions
 
      switch(this.position.f){
        
@@ -91,11 +90,9 @@ class Robot {
       
      //return positonFound ? true : false;
      if(positionFound && positionFound.length>0){
-      
        return true;
      }else{
-       
-       return false;
+      return false;
      }
       
   }

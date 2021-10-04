@@ -1,6 +1,6 @@
 
 const DIRECTIONS = ["N","E","S","W"];
-const INITIAL_POSITION = {x:0,y:0,f:DIRECTIONS[0]};
+const INITIAL_POSITION = {x:0,y:0,f:DIRECTIONS[1]};
 const ROBOT_COLOR = 'green'
 const MOVE_STEP = 1;
 const DIRECTION_LEFT = 'LEFT';
@@ -12,8 +12,9 @@ const KEY_MAP = [
   {"key_name":"r","commands":"Get Report"},
   {"key_name":"p","commands":"Set StartPoint"},
   {"key_name":"a","commands":"Rotate To Left"},
-  {"key_name":"a","commands":"Rotate To Left"},
+  {"key_name":"Left","commands":"Rotate To Left"},
   {"key_name":"d","commands":"Rotate To Right"},
+  {"key_name":"Right","commands":"Rotate To Right"}
 ]
 const DEAD_CORNERS = [
   "55E","55N","50E","50S",'00S','00W','05N','05W',
